@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('posts', [
-        'posts' => Post::all()
+        'posts' => Post::latest()->get()
     ]);
 });
 
@@ -24,3 +24,10 @@ Route::get('categories/{category:slug}', function (Category $category) {
         'posts' => $category->posts
     ]);
 });
+
+Route::get('authors/{author:username}', function (\App\Models\User $author) {
+  return view('posts', [
+      'posts' => $author->posts
+  ]);
+});
+
